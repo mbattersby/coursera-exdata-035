@@ -7,6 +7,8 @@ library(readr)
 
 (function () {
     
+    if (exists('pm25')) return()
+    
     zipURL <- 'https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip'
     zipFile <- basename(URLdecode(zipURL))
     
