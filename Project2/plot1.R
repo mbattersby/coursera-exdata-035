@@ -6,7 +6,9 @@ source('fetch.dataset.R')
 
 plot1bar <- function () {
     
-    total_pm25 <- pm25 %>% group_by(year) %>% summarize(total_emissions = sum(Emissions) / 1e6)
+    total_pm25 <- pm25 %>%
+        group_by(year) %>%
+        summarize(total_emissions = sum(Emissions) / 1e6)
     
     par(mar=c(3,6,3,1))
     
@@ -43,8 +45,8 @@ plot1scatter <- function () {
         
         plot(year, total_emissions, pch=19,
              xlim=c(1998,2009),
-             ylim=c(0,9),
-             ylab='Total PM2.5 Emissions\n(x 1000 tons)')
+             ylim=c(0,8),
+             ylab='Total PM2.5 Emissions\n(x 1e6 tons)')
         
         lines(year, total_emissions)
         
@@ -57,7 +59,7 @@ plot1scatter <- function () {
              pos = 3,
              col = "steelblue")
         
-        title('Baltimore PM2.5 Emissions By Year')
+        title('Total PM2.5 Emissions By Year')
     })
 }
 
