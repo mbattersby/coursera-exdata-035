@@ -57,4 +57,6 @@ plot6lattice <- function () {
     print(p)
 }
 
+png(filename='plot6.png', width=480, height=480)
 plot6()
+graphics.off()

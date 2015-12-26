@@ -71,4 +71,6 @@ plot2scatter <- function () {
     })
 }
 
+png(filename='plot2.png', width=480, height=480)
 plot2scatter()
+graphics.off()

@@ -21,5 +21,6 @@ plot4 <- function () {
         labs(title = 'Total Coal PM2.5 Emissions By Year')
     print(p)
 }
-
+png(filename='plot4.png', width=480, height=480)
 plot4()
+graphics.off()

@@ -24,4 +24,6 @@ plot5 <- function () {
     print(p)
 }
 
+png(filename='plot5.png', width=480, height=480)
 plot5()
+graphics.off()

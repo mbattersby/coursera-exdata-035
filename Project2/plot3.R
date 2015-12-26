@@ -26,4 +26,6 @@ plot3 <- function () {
     print(p)
 }
 
+png(filename='plot3.png', width=480, height=480)
 plot3()
+graphics.off()
