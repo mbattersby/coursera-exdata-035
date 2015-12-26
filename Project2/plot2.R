@@ -2,15 +2,19 @@
 # (fips == "24510") from 1999 to 2008? Use the base plotting system to make a
 # plot answering this question.
 
+# fetch.dataset leaves a tidied pm25 in the global environment for us to work on.
 source('fetch.dataset.R')
 
+# Bar plot version, ultimately not used because the lmline was too useful.
 plot2bar <- function () {
     
+    # dplyr, filter by fips of Baltimore City
     balt_pm25 <- pm25 %>%
-        filter(fips == 24510) %>%
+        filter(fips == '24510') %>%
         group_by(year) %>%
         summarize(total_emissions = sum(Emissions) / 1e3)
     
+    # Bigger margins again, to fit in the 2-line ylab
     par(mar=c(3,6,3,1))
     
     with(balt_pm25, {
@@ -43,7 +47,7 @@ plot2scatter <- function () {
     balt_pm25 <- pm25 %>%
         filter(fips == 24510) %>%
         group_by(year) %>%
-        summarize(total_emissions = sum(Emissions) / 1e3)
+        summarize(total_emissions = sum(Emissions) / 1000)
     
     par(mar=c(3,6,3,1))
     
@@ -67,7 +71,7 @@ plot2scatter <- function () {
              pos = 3,
              col = "steelblue")
         
-        title('Baltimore PM2.5 Emissions By Year')
+        title('Baltimore City PM2.5 Emissions By Year')
     })
 }
 

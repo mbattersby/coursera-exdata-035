@@ -10,9 +10,10 @@ library(ggplot2)
 suppressPackageStartupMessages(library(dplyr))
 
 plot3 <- function () {
-    
+
+    # Group by (year, type) so we can facet on type    
     balt_pm25 <- pm25 %>%
-        filter(fips == 24510) %>%
+        filter(fips == '24510') %>%
         group_by(year, type) %>%
         summarize(total_emissions = sum(Emissions))
     
@@ -21,8 +22,9 @@ plot3 <- function () {
         geom_smooth(method="lm", se=FALSE, linetype=8, col='red') +
         labs(y = 'Total PM2.5 Emissions\n(x 1000 tons)') +
         labs(x = 'Year') +
-        labs(title = 'Baltimore PM2.5 Emissions By Year') +
+        labs(title = 'Baltimore City PM2.5 Emissions By Year') +
         facet_wrap(~type, ncol=2, scales='free')
+    
     print(p)
 }
 

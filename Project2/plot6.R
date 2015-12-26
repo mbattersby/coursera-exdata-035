@@ -17,6 +17,8 @@ plot6 <- function () {
         group_by(year, fips) %>%
         summarize(total_emissions = sum(Emissions))
     
+    # This is a bit ugly, but it makes the factor plot display come out nicely.
+    
     comp_pm25$fips[comp_pm25$fips == '24510'] <- c('Baltimore City')
     comp_pm25$fips[comp_pm25$fips == '06037'] <- c('Los Angeles County')
     
@@ -32,6 +34,7 @@ plot6 <- function () {
 
 }
 
+# Lattice plot version, just for fun.
 plot6lattice <- function () {
     
     comp_pm25 <- pm25 %>%
@@ -39,6 +42,8 @@ plot6lattice <- function () {
         filter(grepl('^Mobile - On-Road', EI.Sector)) %>%
         group_by(year, fips) %>%
         summarize(total_emissions = sum(Emissions))
+    
+    # This is a bit ugly, but it makes the factor plot display come out nicely.
     
     comp_pm25$fips[comp_pm25$fips == '24510'] <- c('Baltimore City')
     comp_pm25$fips[comp_pm25$fips == '06037'] <- c('Los Angeles County')

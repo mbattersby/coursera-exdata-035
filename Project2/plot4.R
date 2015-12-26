@@ -18,9 +18,11 @@ plot4 <- function () {
         geom_smooth(method="lm", se=FALSE, linetype=8, col='red') +
         labs(y = 'Total PM2.5 Emissions\n(x 1000 tons)') +
         labs(x = 'Year') +
-        labs(title = 'Total Coal PM2.5 Emissions By Year')
+        labs(title = 'U.S.A. Coal PM2.5 Emissions By Year')
+    
     print(p)
 }
+
 png(filename='plot4.png', width=480, height=480)
 plot4()
 graphics.off()

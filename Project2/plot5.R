@@ -8,6 +8,7 @@ suppressPackageStartupMessages(library(dplyr))
 
 plot5 <- function () {
     
+    # Assume that motor vehicle sources are all classfied under EI.Sector 'Mobile - On-Road...'
     balt_pm25 <- pm25 %>%
         filter(fips == 24510) %>%
         filter(grepl('^Mobile - On-Road', EI.Sector)) %>%
@@ -20,7 +21,8 @@ plot5 <- function () {
         labs(y = 'Total PM2.5 Emissions (tons)') +
         labs(x = 'Year') +
         geom_hline(yintercept=0) +
-        labs(title = 'Motor Vehicle PM2.5 Emissions In Baltimore By Year')
+        labs(title = 'Baltimore City Motor Vehicle PM2.5 Emissions By Year')
+    
     print(p)
 }
 

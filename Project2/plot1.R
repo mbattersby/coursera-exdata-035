@@ -2,46 +2,54 @@
 # 2008? Using the base plotting system, make a plot showing the total PM2.5
 # emission from all sources for each of the years 1999, 2002, 2005, and 2008.
 
+# fetch.dataset leaves a tidied pm25 in the global environment for us to work on.
 source('fetch.dataset.R')
+
+# Bar plot version. I like the bar plot but you can't include the abline (easily) because
+# the X coords of the plot are not the X values of the data.
 
 plot1bar <- function () {
     
+    # Use dplyr to sum emissions per year.
     total_pm25 <- pm25 %>%
         group_by(year) %>%
         summarize(total_emissions = sum(Emissions) / 1e6)
     
+    # Base graphics needs a bigger left margin to fit in our two-line ylab
     par(mar=c(3,6,3,1))
     
+    # Wrapper the whole thing in with() to avoid having to use total_pm25$xxx everywhere.
     with(total_pm25, {
+        # The return value from barplot is the x positions of the middle of each bar
         x_offsets <-barplot(total_emissions,
                             names=year,
                             col="wheat",
                             ylim=c(0,8),
-                            ylab='Total PM2.5 Emissions\n(x 1e6 tons)')
+                            ylab='U.S.A. Total PM2.5 Emissions\n(x 1e6 tons)')
         
+        # So we can use the X positions to place our text values
         text(x_offsets, total_emissions,
              label = paste(round(total_emissions, digits = 2), 'M', sep=''),
              pos = 3,
              col = "steelblue")
         
-        points(x_offsets, total_emissions, pch=15)
-        lines(x_offsets, total_emissions, lty=5)
-        
         title('Total PM2.5 Emissions By Year')
     })
 }
 
+# Scatter plot version.
 plot1scatter <- function () {
     
+    # Use dplyr to sum emissions per year.
     total_pm25 <- pm25 %>%
         group_by(year) %>%
         summarize(total_emissions = sum(Emissions) / 1e6)
     
+    # Base graphics needs a bigger left margin to fit in our two-line ylab
     par(mar=c(3,6,3,1))
     
+    # Wrapper the whole thing in with() to avoid having to use total_pm25$xxx everywhere.
     with(total_pm25, {
-        
-        # The return value from barplot is the x positions of the middle of each bar
         
         plot(year, total_emissions, pch=19,
              xlim=c(1998,2009),
@@ -50,16 +58,15 @@ plot1scatter <- function () {
         
         lines(year, total_emissions)
         
+        # Linear regression line in red.
         abline(lm(total_emissions ~ year), lty=5, col='red')
-        
-        # So we can use the X positions to place our text values
         
         text(year, total_emissions,
              label = paste(round(total_emissions, digits = 2), 'M', sep=''),
              pos = 3,
              col = "steelblue")
         
-        title('Total PM2.5 Emissions By Year')
+        title('U.S.A. Total PM2.5 Emissions By Year')
     })
 }
 
